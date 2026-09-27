@@ -1,0 +1,33 @@
+name: API Automation Testing & Gatekeeper
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install Newman (Postman CLI Runner)
+      run: npm install -g newman
+
+    - name: Run Postman Collection with CSV Data
+      env:
+        LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
+        LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+      run: |
+        newman run collection.json \
+          --iteration-data lab_data.csv \
+          --env-var "email=$LOGIN_EMAIL" \
+          --env-var "password=$LOGIN_PASSWORD"
