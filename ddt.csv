@@ -1,0 +1,4 @@
+title,description,expected_status
+"Laboratorium AI","Fasilitas riset kecerdasan buatan",201
+"","Deskripsi tanpa judul karena judul kosong",400
+"AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ1234567890!@#$%^&*()","Edge case judul super panjang dengan karakter spesial",201

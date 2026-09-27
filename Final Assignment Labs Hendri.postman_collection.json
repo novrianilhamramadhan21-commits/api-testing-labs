@@ -1,0 +1,386 @@
+{
+  "info": {
+    "_postman_id": "395568f5-1bb3-4881-961a-07e67ff53437",
+    "name": "Final Assignment Labs Hendri",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58557322",
+    "_collection_link": "https://go.postman.co/collection/58557322-395568f5-1bb3-4881-961a-07e67ff53437?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var jsonData = pm.response.json();\r\n\r\n// Mengambil token dari data.token sesuai struktur JSON respons server\r\nvar token = jsonData.data.token;\r\n\r\n// Menyimpan ke collection variable dengan nama \"auth_token\"\r\npm.collectionVariables.set(\"auth_token\", token);\r\n\r\nconsole.log(\"Token berhasil disimpan: \" + token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"standard_user@example.com\",\r\n  \"password\": \"script_sauce\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Auth Login (Invalid)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var jsonData = pm.response.json();\r\n\r\n// Mengambil token dari data.token sesuai struktur JSON respons server\r\nvar token = jsonData.data.token;\r\n\r\n// Menyimpan ke collection variable dengan nama \"auth_token\"\r\npm.collectionVariables.set(\"auth_token\", token);\r\n\r\nconsole.log(\"Token berhasil disimpan: \" + token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"script\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/auth/login?Content-Type=application/json",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ],
+          "query": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Labs",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/labs",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "labs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Lab Detail (Not Found)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/labs/99999",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "labs",
+            "99999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Lab Detail",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/labs/830",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "labs",
+            "830"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Lab",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Laboratorium Komputer Jaringan V3\",\r\n  \"description\": \"Ruang praktikum jaringan komputer lantai 4\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/labs",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "labs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Lab",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Laboratorium Komputer Jaringan (Updated)\",\r\n  \"description\": \"Perubahan deskripsi lab jaringan\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/labs/832",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "labs",
+            "832"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Lab",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://api-script-labs.hendri.me/api/labs/831",
+          "protocol": "https",
+          "host": [
+            "api-script-labs",
+            "hendri",
+            "me"
+          ],
+          "path": [
+            "api",
+            "labs",
+            "831"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_token",
+      "value": ""
+    }
+  ]
+}
