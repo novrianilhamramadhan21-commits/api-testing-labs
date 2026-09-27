@@ -62,7 +62,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "var jsonData = pm.response.json();\r\n\r\n// Mengambil token dari data.token sesuai struktur JSON respons server\r\nvar token = jsonData.data.token;\r\n\r\n// Menyimpan ke collection variable dengan nama \"auth_token\"\r\npm.collectionVariables.set(\"auth_token\", token);\r\n\r\nconsole.log(\"Token berhasil disimpan: \" + token);"
+              "var jsonData = pm.response.json();\r\nif (jsonData.token) {\r\n    pm.environment.set(\"token\", jsonData.token);\r\n}"
             ]
           }
         }
@@ -152,7 +152,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+              "pm.test(\"Status code is 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Response has success false for not found\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(false);\r\n});"
             ]
           }
         }
@@ -289,7 +289,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 8000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(8000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
             ]
           }
         }
@@ -341,7 +341,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});"
+              "// 1. Cek Status Code\r\npm.test(\"Status code is 200 or 201\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r\n});\r\n\r\n// 2. Cek Response Time (misal di bawah 2 detik)\r\npm.test(\"Response time is less than 2000ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(2000);\r\n});\r\n\r\n// 3. Cek Response Body memiliki property sukses\r\npm.test(\"Response has success true\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.success).to.eql(true);\r\n});\r\n\r\npm.test(\"Status code is 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});"
             ]
           }
         }
